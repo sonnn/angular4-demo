@@ -1,0 +1,19 @@
+<div class="audio-component">
+  <div class="audio-list">
+    <ul>
+      <li *ngFor="let adi of audios;">
+        <audio controls [loop]="adi.loop">
+          <source [src]="adi.url" type="audio/ogg">
+        </audio>
+        <label>
+          Loop
+          <input [(ngModel)]="adi.loop" type="checkbox">
+        </label>
+      </li>
+    </ul>
+    <div class="audio-add">
+      <h5>Have more audio? Add link here ._.</h5>
+      <input [(ngModel)]="addString" (keyup.enter)="add($event)" placeholder="Input link here then press enter!">
+    </div>
+  </div>
+</div>

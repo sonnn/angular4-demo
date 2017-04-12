@@ -1,0 +1,82 @@
+.posts-component {
+  margin: 20px;
+
+  .loading {
+    text-align: center;
+  }
+
+  .filter {
+    width: 100%;
+    margin-bottom: 20px;
+    position: relative;
+
+    input {
+      width: 100%;
+      padding: 5px 10px;
+      line-height: 40px;
+      font-size: 14px;
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    .btn-apply{
+      height: 54px;
+      width: 54px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      line-height: 54px;
+      text-align: center;
+      background: #ccc;
+    }
+  }
+
+  table {
+    color: #333;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+
+    thead {
+      th {
+        background: #333;
+	      color: #FFF; font-weight: bold;
+        line-height: 40px;
+        padding: 8px 25px 8px 5px;
+        position: relative;
+
+        &.clickable:hover {
+          background: #444;
+          cursor: pointer;
+        }
+        
+        span.sort-dir {
+          position: absolute;
+          top: 8px;
+          right: 3px;
+          
+          span.bottom:after {
+            content: '⬇'
+          }
+
+          span.top:after {
+            content: '⬆'
+          }
+
+          span.nope:after {
+            content: '-'
+          }
+        }
+      }
+    }
+
+    tbody {
+      td {
+        background: #FAFAFA; 
+        padding: 8px 10px;
+      }
+      tr:nth-child(even) td { background: #EEE; } 
+      tr:nth-child(odd) td { background: #FDFDFD; }
+    }
+  }
+}
