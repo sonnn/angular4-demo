@@ -61,13 +61,25 @@ export class PostComponent implements OnInit {
         return this.massageData(newfstr, this.massageData(fstr, data));
       }
     } else {
-      const splits = filterString.split(/=+|>|<|INCLUDE/);
+      const splits = filterString.split(/=+|>=|=>|<=|=<|>|<|INCLUDE/);
 
       if (splits && splits.length === 2) {
-        if (filterString.indexOf('=') > -1) return data.filter(f => f[splits[0]] == splits[1]);
-        if (filterString.indexOf('>') > -1) return data.filter(f => f[splits[0]] > splits[1]);
-        if (filterString.indexOf('<') > -1) return data.filter(f => f[splits[0]] < splits[1]);
-        if (filterString.indexOf('INCLUDE') > -1) return data.filter(f => f[splits[0]].indexOf(splits[1]) > -1);
+        if (filterString.indexOf('>=') > -1 || filterString.indexOf('=>') > -1)
+          return data.filter(f => f[splits[0]] > splits[1]);
+        if (filterString.indexOf('>') > -1)
+          return data.filter(f => f[splits[0]] > splits[1]);
+        if (filterString.indexOf('<=') > -1 || filterString.indexOf('=<') > -1)
+          return data.filter(f => f[splits[0]] < splits[1]);
+        if (filterString.indexOf('<') > -1)
+          return data.filter(f => f[splits[0]] < splits[1]);
+        if (filterString.indexOf('=') > -1)
+          return data.filter(f => f[splits[0]] == splits[1]);
+        if (filterString.indexOf('INCLUDE') > -1) {
+          let str = splits[1];
+          str = str.replace(/"/g, '');
+          str = str.replace(/_/g, ' ');
+          return data.filter(f => f[splits[0]].indexOf(str) > -1);
+        }
       } else {
         return data;
       }
@@ -76,6 +88,13 @@ export class PostComponent implements OnInit {
 
   filterClick(filterString) {
     // p/s: ._. dont try break my code...
+    const quotes = filterString.match(/\".*\"/g);
+
+    if (quotes) {
+      quotes.forEach(quote => {
+        filterString = filterString.replace(quote, quote.replace(/\s/g, '_'));
+      })
+    }
     filterString = filterString.replace(/\s/g,'');
     this.data = this.massageData(filterString, this.cache);
   }
