@@ -4,7 +4,7 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class DemoService {
-  baseUrl = 'http://jsonplaceholder.typicode.com';
+  baseUrl = 'https://jsonplaceholder.typicode.com';
 
   constructor(private http: Http) {}
 
